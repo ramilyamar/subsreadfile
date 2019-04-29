@@ -1,0 +1,12 @@
+1
+00:00:37,700 --> 00:00:41,120
+<i>Legend tells of a legendary warrior</i>
+
+2
+00:00:41,200 --> 00:00:44,370
+<i>whose kung fu skills
+were the stuff of legend.</i>
+
+3
+00:00:45,500 --> 00:00:50,090
+He was a legendary warrior for 500 years!
