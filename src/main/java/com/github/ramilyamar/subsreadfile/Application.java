@@ -1,8 +1,10 @@
 package com.github.ramilyamar.subsreadfile;
 
 import com.github.ramilyamar.subsreadfile.dict.Dictionary;
+import com.github.ramilyamar.subsreadfile.dict.DictionaryParser;
 import com.github.ramilyamar.subsreadfile.words.WordsExtractor;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Collection;
@@ -12,9 +14,9 @@ public class Application {
     private WordsExtractor wordsExtractor;
     private Dictionary dictionary;
 
-    Application(WordsExtractor wordsExtractor, Dictionary dictionary) {
+    Application(WordsExtractor wordsExtractor, DictionaryParser dictionaryParser, String dictionaryPath) {
         this.wordsExtractor = wordsExtractor;
-        this.dictionary = dictionary;
+        this.dictionary = dictionaryParser.parse(new File(dictionaryPath));
     }
 
     void run(String filePath) {
