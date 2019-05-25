@@ -1,36 +1,39 @@
 package com.github.ramilyamar.subsreadfile;
 
-import com.github.ramilyamar.subsreadfile.dict.Dictionary;
-import com.github.ramilyamar.subsreadfile.dict.DictionaryParser;
-import com.github.ramilyamar.subsreadfile.words.WordsExtractor;
+import com.github.ramilyamar.subsreadfile.commands.SubsLoader;
+import com.github.ramilyamar.subsreadfile.enums.Command;
+import com.github.ramilyamar.subsreadfile.util.StringUtil;
 
-import java.io.File;
-import java.io.FileInputStream;
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.SortedSet;
+import java.io.InputStreamReader;
 
 public class Application {
-    private WordsExtractor wordsExtractor;
-    private Dictionary dictionary;
 
-    Application(WordsExtractor wordsExtractor, DictionaryParser dictionaryParser, String dictionaryPath) {
-        this.wordsExtractor = wordsExtractor;
-        this.dictionary = dictionaryParser.parse(new File(dictionaryPath));
+    public Application(SubsLoader subsLoader) {
+        this.subsLoader = subsLoader;
     }
 
-    void run(String filePath) {
-        try (FileInputStream inputStream = new FileInputStream(filePath)) {
-            SortedSet<String> uniqueWords = wordsExtractor.getUniqueWords(inputStream);
-            for (String word : uniqueWords) {
-                Collection<String> translations = dictionary.translate(word);
-                System.out.println(word + " - " + translations);
+    private SubsLoader subsLoader;
+
+    void run() throws IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        loop:
+        while (true) {
+            String fullCommand = reader.readLine();
+            String commandText = StringUtil.substringBefore(fullCommand, " ");
+            Command command = Command.valueOf(commandText.toUpperCase()); // TODO: 25.05.2019 handle unknown command
+
+            switch (command) {
+                case ADD:
+                    subsLoader.load(StringUtil.substringAfter(fullCommand, " "));
+                    break;
+                case EXIT:
+                    break loop;
+                default:
+                    System.out.println("Not implemented yet! Haha");
             }
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Укажите путь к файлу"); // TODO более корректно обработать ошибку
         }
     }
 }
