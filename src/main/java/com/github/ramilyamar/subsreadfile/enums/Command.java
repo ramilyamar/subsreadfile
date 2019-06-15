@@ -1,5 +1,7 @@
 package com.github.ramilyamar.subsreadfile.enums;
 
+import java.util.Optional;
+
 public enum Command {
     ADD("add"),
     WORDS("words"),
@@ -13,5 +15,14 @@ public enum Command {
 
     Command(String commandName) {
         this.commandName = commandName;
+    }
+    
+    public static Optional<Command> fromString(String commandName) {
+        for (Command command : Command.values()) {
+            if (command.commandName.equals(commandName)) {
+                return Optional.of(command);
+            }
+        }
+        return Optional.empty();
     }
 }
