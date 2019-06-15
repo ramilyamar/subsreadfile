@@ -7,6 +7,7 @@ import com.github.ramilyamar.subsreadfile.util.StringUtil;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Optional;
 
 public class Application {
 
@@ -23,17 +24,21 @@ public class Application {
         while (true) {
             String fullCommand = reader.readLine();
             String commandText = StringUtil.substringBefore(fullCommand, " ");
-            Command command = Command.valueOf(commandText.toUpperCase()); // TODO: 25.05.2019 handle unknown command
+            Optional<Command> commandOptional = Command.fromString(commandText);
 
-            switch (command) {
-                case ADD:
-                    subsLoader.load(StringUtil.substringAfter(fullCommand, " "));
-                    break;
-                case EXIT:
-                    break loop;
-                default:
-                    System.out.println("Not implemented yet! Haha");
-            }
+           if (commandOptional.isPresent()) {
+               Command command = commandOptional.get();
+
+               switch (command) {
+                   case ADD:
+                       subsLoader.load(StringUtil.substringAfter(fullCommand, " "));
+                       break;
+                   case EXIT:
+                       break loop;
+               }
+           } else {
+               System.out.println("Нет такой команды: " + commandText);
+           }
         }
     }
 }
