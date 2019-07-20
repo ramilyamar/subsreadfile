@@ -66,11 +66,12 @@ public class Database {
                 statement.setString(i + 1, parameters[i]);
             }
             ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-            return Option.of(resultSet.getString(1));
+            if (resultSet.next())
+                return Option.of(resultSet.getString(1));
+            else return Option.none();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e);
         }
-        return Option.none();
     }
 }

@@ -35,14 +35,25 @@ public class Application {
                     case ADD:
                         subsLoader.load(tokens[1]);
                         break;
+                    case LOGIN:
+                        userDao.getEncryptedPassword(tokens[1]).onDefined(encryptedPassword -> {
+                            if (PasswordUtils.verifyUserPassword(tokens[2], encryptedPassword))
+                                greeting(tokens[1]);
+                            else System.out.println("Неверный пароль");
+                        }).onEmpty(() -> System.out.println("Пользователь не найден"));
+                        break;
                     case REG:
                         userDao.createUser(tokens[1], PasswordUtils.encryptPassword(tokens[2]));
-                        System.out.println("Добро пожаловать, " + tokens[1] + "!");
+                        greeting(tokens[1]);
                         break;
                     case EXIT:
                         System.exit(0);
                 }
             }).onEmpty(() -> System.out.println("Нет такой команды: " + commandText));
         }
+    }
+
+    private void greeting(String name) {
+        System.out.println("Добро пожаловать, " + name + "!");
     }
 }

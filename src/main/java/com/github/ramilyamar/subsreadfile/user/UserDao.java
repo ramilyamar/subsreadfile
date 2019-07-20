@@ -22,4 +22,12 @@ public interface UserDao {
      * @return name of user by id or {@link Option#none} if user with this id is not found
      */
     Option<String> getUserNameById(long id);
+
+    /**
+     * Returns encrypted password from storage by username
+     *
+     * @param name name of user
+     * @return encrypted password or {@link Option#none} if user with this name is not found
+     */
+    Option<EncryptedPassword> getEncryptedPassword(String name);
 }
