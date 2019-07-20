@@ -1,6 +1,6 @@
 package com.github.ramilyamar.subsreadfile.enums;
 
-import java.util.Optional;
+import io.vavr.control.Option;
 
 public enum Command {
     ADD("add"),
@@ -17,12 +17,12 @@ public enum Command {
         this.commandName = commandName;
     }
     
-    public static Optional<Command> fromString(String commandName) {
+    public static Option<Command> fromString(String commandName) {
         for (Command command : Command.values()) {
             if (command.commandName.equals(commandName)) {
-                return Optional.of(command);
+                return Option.of(command);
             }
         }
-        return Optional.empty();
+        return Option.none();
     }
 }
