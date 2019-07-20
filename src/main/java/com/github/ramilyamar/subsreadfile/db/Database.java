@@ -1,5 +1,7 @@
 package com.github.ramilyamar.subsreadfile.db;
 
+import com.github.ramilyamar.subsreadfile.devutil.NeedsRefactoring;
+
 import java.io.InputStream;
 import java.sql.*;
 import java.util.Properties;
@@ -30,6 +32,7 @@ public class Database {
         }
     }
 
+    @NeedsRefactoring("this method is too long")
     public long insert(String sql, String... parameters) {
         PreparedStatement statement;
         try {
