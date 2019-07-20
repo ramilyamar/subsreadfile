@@ -5,11 +5,11 @@ import com.github.ramilyamar.subsreadfile.user.UserDaoImpl;
 import io.vavr.control.Option;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class UserDaoImplTest {
 
-    UserDaoImpl dao = new UserDaoImpl(new Database());
+    private UserDaoImpl dao = new UserDaoImpl(new Database());
 
     @Test
     void createUser() {

@@ -1,4 +1,4 @@
-package com.github.ramilyamar.subsreadfile.subs.words;
+package com.github.ramilyamar.subsreadfile.subs;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-public class SimpleWordsExtractor implements WordsExtractor {
+class SimpleWordsExtractor implements WordsExtractor {
 
     @Override
     public SortedSet<String> getUniqueWords(FileInputStream inputStream) {

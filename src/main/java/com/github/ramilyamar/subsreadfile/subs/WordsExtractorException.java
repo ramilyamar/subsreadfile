@@ -1,4 +1,4 @@
-package com.github.ramilyamar.subsreadfile.subs.words;
+package com.github.ramilyamar.subsreadfile.subs;
 
 public class WordsExtractorException extends RuntimeException {
 

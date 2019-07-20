@@ -1,8 +1,8 @@
-package com.github.ramilyamar.subsreadfile.subs.words;
+package com.github.ramilyamar.subsreadfile.subs;
 
 import java.io.FileInputStream;
 import java.util.SortedSet;
 
-public interface WordsExtractor {
+interface WordsExtractor {
     SortedSet<String> getUniqueWords(FileInputStream inputStream);
 }

@@ -1,5 +1,6 @@
 package com.github.ramilyamar.subsreadfile.app;
 
+import com.github.ramilyamar.subsreadfile.devutil.NeedsRefactoring;
 import com.github.ramilyamar.subsreadfile.subs.SubsLoader;
 import com.github.ramilyamar.subsreadfile.user.PasswordUtils;
 import com.github.ramilyamar.subsreadfile.user.UserDao;
@@ -20,6 +21,7 @@ public class Application {
     }
 
     @SuppressWarnings("squid:S2189")
+    @NeedsRefactoring("S2T1")
     public void run() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 

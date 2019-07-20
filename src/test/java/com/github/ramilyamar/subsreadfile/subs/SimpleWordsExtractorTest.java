@@ -1,7 +1,5 @@
-package com.github.ramilyamar.subsreadfile;
+package com.github.ramilyamar.subsreadfile.subs;
 
-import com.github.ramilyamar.subsreadfile.subs.words.SimpleWordsExtractor;
-import com.github.ramilyamar.subsreadfile.subs.words.WordsExtractor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

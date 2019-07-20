@@ -1,15 +1,18 @@
 package com.github.ramilyamar.subsreadfile.user;
 
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.util.Arrays;
 import java.util.Base64;
 import java.util.Random;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 
 public class PasswordUtils {
+
+    private PasswordUtils() {
+    }
 
     private static final Random RANDOM = new SecureRandom();
     private static final String ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -26,10 +29,6 @@ public class PasswordUtils {
         return Base64.getEncoder().encodeToString(securePassword);
     }
 
-    /**
-     * @param password
-     * @return
-     */
     public static EncryptedPassword encryptPassword(String password) {
         String salt = generateSalt(30);
         String encryptedPassword = encryptPassword(password, salt);

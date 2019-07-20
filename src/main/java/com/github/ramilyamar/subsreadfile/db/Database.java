@@ -1,7 +1,6 @@
 package com.github.ramilyamar.subsreadfile.db;
 
 import io.vavr.control.Option;
-import io.vavr.control.Try;
 
 import java.io.InputStream;
 import java.sql.*;

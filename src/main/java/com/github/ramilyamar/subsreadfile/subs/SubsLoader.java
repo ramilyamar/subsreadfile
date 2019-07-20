@@ -1,7 +1,6 @@
 package com.github.ramilyamar.subsreadfile.subs;
 
 import com.github.ramilyamar.subsreadfile.dict.Dictionary;
-import com.github.ramilyamar.subsreadfile.subs.words.WordsExtractor;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -13,8 +12,8 @@ public class SubsLoader {
     private WordsExtractor wordsExtractor;
     private Dictionary dictionary;
 
-    public SubsLoader(WordsExtractor wordsExtractor, Dictionary dictionary) {
-        this.wordsExtractor = wordsExtractor;
+    public SubsLoader(Dictionary dictionary) {
+        this.wordsExtractor = new SimpleWordsExtractor();
         this.dictionary = dictionary;
     }
 
