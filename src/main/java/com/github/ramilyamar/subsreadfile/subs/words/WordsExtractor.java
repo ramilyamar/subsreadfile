@@ -1,4 +1,4 @@
-package com.github.ramilyamar.subsreadfile.words;
+package com.github.ramilyamar.subsreadfile.subs.words;
 
 import java.io.FileInputStream;
 import java.util.SortedSet;

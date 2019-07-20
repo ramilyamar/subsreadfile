@@ -1,6 +1,6 @@
 package com.github.ramilyamar.subsreadfile;
 
-import com.github.ramilyamar.subsreadfile.words.WordsExtractor;
+import com.github.ramilyamar.subsreadfile.subs.words.WordsExtractor;
 
 import java.io.FileInputStream;
 import java.util.SortedSet;

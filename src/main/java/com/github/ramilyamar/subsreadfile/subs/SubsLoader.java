@@ -1,7 +1,7 @@
-package com.github.ramilyamar.subsreadfile.commands;
+package com.github.ramilyamar.subsreadfile.subs;
 
 import com.github.ramilyamar.subsreadfile.dict.Dictionary;
-import com.github.ramilyamar.subsreadfile.words.WordsExtractor;
+import com.github.ramilyamar.subsreadfile.subs.words.WordsExtractor;
 
 import java.io.FileInputStream;
 import java.io.IOException;

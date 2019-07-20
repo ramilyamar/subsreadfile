@@ -1,7 +1,7 @@
 package com.github.ramilyamar.subsreadfile;
 
-import com.github.ramilyamar.subsreadfile.words.SimpleWordsExtractor;
-import com.github.ramilyamar.subsreadfile.words.WordsExtractor;
+import com.github.ramilyamar.subsreadfile.subs.words.SimpleWordsExtractor;
+import com.github.ramilyamar.subsreadfile.subs.words.WordsExtractor;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +14,6 @@ import java.util.Collection;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-@SuppressWarnings("squid:S00112")
 class SimpleWordsExtractorTest {
 
     private static WordsExtractor wordsExtractor = new SimpleWordsExtractor();

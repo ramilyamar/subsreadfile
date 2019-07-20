@@ -1,5 +1,6 @@
-package com.github.ramilyamar.subsreadfile.enums;
+package com.github.ramilyamar.subsreadfile.user;
 
+import com.github.ramilyamar.subsreadfile.app.Command;
 import org.apache.commons.lang3.ArrayUtils;
 
 public enum Role {

@@ -1,6 +1,7 @@
 package com.github.ramilyamar.subsreadfile.db;
 
-import com.github.ramilyamar.subsreadfile.devutil.NeedsRefactoring;
+import io.vavr.control.Option;
+import io.vavr.control.Try;
 
 import java.io.InputStream;
 import java.sql.*;
@@ -24,40 +25,52 @@ public class Database {
             connection = DriverManager.getConnection(url, user, password);
 
             Statement statement = connection.createStatement();
-            statement.executeUpdate("create table IF NOT EXISTS users (id INTEGER not NULL auto_increment, name VARCHAR(255), " +
-                    "password VARCHAR(255), PRIMARY KEY (id))");
-
+            statement.executeUpdate("create table IF NOT EXISTS users " +
+                    "(id INTEGER NOT NULL AUTO_INCREMENT, " +
+                    "name VARCHAR(255) UNIQUE, " +
+                    "password VARCHAR(255), " +
+                    "salt VARCHAR(30), " +
+                    "PRIMARY KEY (id))");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    @NeedsRefactoring("this method is too long")
     public long insert(String sql, String... parameters) {
-        PreparedStatement statement;
-        try {
-            statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            for (int i = 0; i < parameters.length; i++) {
-                statement.setString(i + 1, parameters[i]);
-            }
-            int affectedRows = statement.executeUpdate();
-
-            if (affectedRows == 0) {
-                throw new SQLException("Creating user failed, no rows affected.");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-
-        try (ResultSet generatedKeys = statement.getGeneratedKeys()) {
+        try (PreparedStatement statement = executeStatement(sql, parameters);
+             ResultSet generatedKeys = statement.getGeneratedKeys()) {
             if (generatedKeys.next()) {
                 return generatedKeys.getLong(1);
             } else {
                 throw new RuntimeException("Ошибка при создании сущности");
             }
-        } catch (SQLException e) {
+        } catch (Exception e) {
+            e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    @SuppressWarnings("squid:S2095")
+    private PreparedStatement executeStatement(String sql, String... parameters) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        for (int i = 0; i < parameters.length; i++) {
+            statement.setString(i + 1, parameters[i]);
+        }
+        statement.executeUpdate();
+        return statement;
+    }
+
+    public Option<String> getString(String sql, String... parameters) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int i = 0; i < parameters.length; i++) {
+                statement.setString(i + 1, parameters[i]);
+            }
+            ResultSet resultSet = statement.executeQuery();
+            resultSet.next();
+            return Option.of(resultSet.getString(1));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Option.none();
     }
 }
