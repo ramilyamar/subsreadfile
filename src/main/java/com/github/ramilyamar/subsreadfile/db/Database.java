@@ -22,20 +22,12 @@ public class Database {
             String user = properties.getProperty("db.user");
             String password = properties.getProperty("db.password");
             connection = DriverManager.getConnection(url, user, password);
-
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("create table IF NOT EXISTS users " +
-                    "(id INTEGER NOT NULL AUTO_INCREMENT, " +
-                    "name VARCHAR(255) UNIQUE, " +
-                    "password VARCHAR(255), " +
-                    "salt VARCHAR(30), " +
-                    "PRIMARY KEY (id))");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public long insert(String sql, String... parameters) {
+    public long insert(String sql, Object... parameters) {
         try (PreparedStatement statement = executeStatement(sql, parameters);
              ResultSet generatedKeys = statement.getGeneratedKeys()) {
             if (generatedKeys.next()) {
@@ -50,10 +42,10 @@ public class Database {
     }
 
     @SuppressWarnings("squid:S2095")
-    private PreparedStatement executeStatement(String sql, String... parameters) throws SQLException {
+    private PreparedStatement executeStatement(String sql, Object... parameters) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         for (int i = 0; i < parameters.length; i++) {
-            statement.setString(i + 1, parameters[i]);
+            statement.setString(i + 1, String.valueOf(parameters[i]));
         }
         statement.executeUpdate();
         return statement;
@@ -68,6 +60,30 @@ public class Database {
             if (resultSet.next())
                 return Option.of(resultSet.getString(1));
             else return Option.none();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public Option<Integer> getInt(String sql, String... parameters) {
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            for (int i = 0; i < parameters.length; i++) {
+                statement.setString(i + 1, parameters[i]);
+            }
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next())
+                return Option.of(resultSet.getInt(1));
+            else return Option.none();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void executeUpdate(String sql) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(sql);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

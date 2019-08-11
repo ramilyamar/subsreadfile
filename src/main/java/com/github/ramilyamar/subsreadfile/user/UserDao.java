@@ -7,10 +7,9 @@ public interface UserDao {
     /**
      * Creates and saves user to storage
      *
-     * @param name name of user to create
+     * @param name              name of user to create
      * @param encryptedPassword encrypted password
      * @return id of created user
-     *
      * @see PasswordUtils
      */
     long createUser(String name, EncryptedPassword encryptedPassword);
@@ -24,10 +23,10 @@ public interface UserDao {
     Option<String> getUserNameById(long id);
 
     /**
-     * Returns encrypted password from storage by username
+     * Returns user information by name
      *
      * @param name name of user
-     * @return encrypted password or {@link Option#none} if user with this name is not found
+     * @return user information by name or {@link Option#none} if user with this name is not found
      */
-    Option<EncryptedPassword> getEncryptedPassword(String name);
+    Option<UserInfo> getUserInfoByName(String name);
 }
