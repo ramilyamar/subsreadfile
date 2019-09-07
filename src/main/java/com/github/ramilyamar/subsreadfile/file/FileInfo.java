@@ -1,4 +1,4 @@
-package com.github.ramilyamar.subsreadfile.user;
+package com.github.ramilyamar.subsreadfile.file;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -9,8 +9,8 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
-public class UserInfo {
-    private long id;
-    private Role role;
-    private EncryptedPassword encryptedPassword;
+public class FileInfo {
+    private String name;
+    private long userId;
+    private String movieName;
 }

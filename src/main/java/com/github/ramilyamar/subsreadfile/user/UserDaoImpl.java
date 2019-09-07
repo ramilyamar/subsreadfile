@@ -3,16 +3,19 @@ package com.github.ramilyamar.subsreadfile.user;
 import com.github.ramilyamar.subsreadfile.db.Database;
 import io.vavr.control.Option;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class UserDaoImpl implements UserDao {
 
-    private static final String GET_ROLE_SQL = "SELECT role from users where name = ?";
+    private static final String GET_ROLE_SQL = "SELECT ROLE FROM USERS WHERE NAME = ?";
     private Database database;
 
     public UserDaoImpl(Database database) {
         this.database = database;
     }
 
-    private static final String INSERT_SQL = "insert into users (name, password, salt, role) values (?, ?, ?, ?)";
+    private static final String INSERT_SQL = "INSERT INTO USERS (NAME, PASSWORD, SALT, ROLE) VALUES (?, ?, ?, ?)";
 
     @Override
     public long createUser(String name, EncryptedPassword encryptedPassword) {
@@ -22,45 +25,28 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Option<String> getUserNameById(long id) {
-        return database.getString("SELECT name from users where id = ?", String.valueOf(id));
+        return database.getString("SELECT NAME FROM USERS WHERE ID = ?", String.valueOf(id));
     }
 
     @Override
     public Option<UserInfo> getUserInfoByName(String name) {
-        return getRole(name).flatMap(role ->
-                getEncryptedPassword(name).map(encryptedPassword ->
-                        new UserInfo(role, encryptedPassword)
-                )
-        );
-    }
-
-    /**
-     * Returns encrypted password from storage by username
-     *
-     * @param name name of user
-     * @return encrypted password or {@link Option#none} if user with this name is not found
-     */
-    private Option<EncryptedPassword> getEncryptedPassword(String name) {
-        Option<String> optionPassword = getPassword(name);
-        return optionPassword.flatMap(password -> {
-                    Option<String> optionSalt = getSalt(name);
-                    return optionSalt.map(salt ->
-                            new EncryptedPassword(password, salt)
-                    );
-                }
-        );
-    }
-
-    private Option<String> getSalt(String name) {
-        return database.getString("SELECT salt from users where name = ?", String.valueOf(name));
-    }
-
-    private Option<String> getPassword(String name) {
-        return database.getString("SELECT password from users where name = ?", String.valueOf(name));
-    }
-
-    private Option<Role> getRole(String name) {
-        Option<Integer> roleId = database.getInt(GET_ROLE_SQL, String.valueOf(name));
-        return roleId.flatMap(Role::fromInt);
+        String sql = "SELECT ID, PASSWORD, SALT, ROLE FROM USERS WHERE NAME = '" + name + "'";
+        ResultSet resultSet = database.executeQuery(sql);
+        try {
+            if (!resultSet.next()) {
+                return Option.none();
+            }
+            long id = resultSet.getLong("id");
+            EncryptedPassword encryptedPassword = new EncryptedPassword(
+                    resultSet.getString("password"),
+                    resultSet.getString("salt")
+            );
+            Role role = Role.fromInt(resultSet.getInt("role"))
+                    .getOrElseThrow(() -> new RuntimeException("Не найдена роль"));
+            return Option.of(new UserInfo(id, role, encryptedPassword));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

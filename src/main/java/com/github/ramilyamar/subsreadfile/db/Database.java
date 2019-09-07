@@ -89,4 +89,14 @@ public class Database {
             throw new RuntimeException(e);
         }
     }
+
+    public ResultSet executeQuery(String sql) {
+        try {
+            Statement statement = connection.createStatement();
+            return statement.executeQuery(sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
 }

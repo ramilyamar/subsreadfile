@@ -1,5 +1,4 @@
 # Usage:
-TODO: сделать нормальный README
 
 start database:
 cd /c/programs/h2/bin

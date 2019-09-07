@@ -29,6 +29,7 @@ public class Application {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         final Role[] currentRole = new Role[]{Role.ANONYMOUS};
+        final UserInfo[] currentUser = new UserInfo[]{null};
 
         while (true) {
             String fullCommand = reader.readLine();
@@ -44,11 +45,14 @@ public class Application {
                 }
                 switch (command) {
                     case ADD:
-                        subsLoader.load(tokens[1]);
+                        subsLoader.load(tokens[1], currentUser[0].getId(), tokens[2]);
                         break;
                     case LOGIN:
                         Option<UserInfo> userInfo = performLogin(tokens[1], tokens[2]);
-                        userInfo.onDefined(u -> currentRole[0] = u.getRole());
+                        userInfo.onDefined(u -> {
+                            currentRole[0] = u.getRole();
+                            currentUser[0] = u;
+                        });
                         break;
                     case REG:
                         userDao.createUser(tokens[1], PasswordUtils.encryptPassword(tokens[2]));
@@ -57,6 +61,7 @@ public class Application {
                     case LOGOUT:
                         System.out.println("До новых встреч!");
                         currentRole[0] = Role.ANONYMOUS;
+                        currentUser[0] = null;
                         break;
                     case EXIT:
                         System.exit(0);

@@ -18,6 +18,17 @@ public class TestDatabase {
                 "salt VARCHAR(30) NOT NULL, " +
                 "role TINYINT NOT NULL, " +
                 "PRIMARY KEY (id))");
+
+        database.executeUpdate("create table IF NOT EXISTS files " +
+                "(" +
+                "id INTEGER NOT NULL AUTO_INCREMENT, " +
+                "name VARCHAR(255) NOT NULL, " +
+                "userId INTEGER NOT NULL, " +
+                "movieName VARCHAR(255), " +
+                "PRIMARY KEY (id), " +
+                "FOREIGN KEY (userId) REFERENCES users(id)" +
+                ")");
+
     }
 
     public static TestDatabase getInstance() {

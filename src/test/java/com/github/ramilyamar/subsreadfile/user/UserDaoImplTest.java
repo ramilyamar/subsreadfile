@@ -1,9 +1,7 @@
-package com.github.ramilyamar.subsreadfile.db;
+package com.github.ramilyamar.subsreadfile.user;
 
-import com.github.ramilyamar.subsreadfile.user.EncryptedPassword;
-import com.github.ramilyamar.subsreadfile.user.Role;
-import com.github.ramilyamar.subsreadfile.user.UserDaoImpl;
-import com.github.ramilyamar.subsreadfile.user.UserInfo;
+import com.github.ramilyamar.subsreadfile.db.TestDatabase;
+import com.github.ramilyamar.subsreadfile.db.TestUtil;
 import io.vavr.control.Option;
 import org.junit.jupiter.api.Test;
 
@@ -29,5 +27,11 @@ class UserDaoImplTest {
         Option<UserInfo> userInfo = dao.getUserInfoByName(username);
         assertTrue(userInfo.isDefined());
         userInfo.onDefined(u -> assertEquals(Role.USER, u.getRole()));
+    }
+
+    @Test
+    void shouldReturnNoneIfUserDoesNotExist() {
+        Option<UserInfo> userInfoByName = dao.getUserInfoByName(TestUtil.uniqueString());
+        assertEquals(Option.none(), userInfoByName);
     }
 }

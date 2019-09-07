@@ -1,7 +1,10 @@
 package com.github.ramilyamar.subsreadfile.subs;
 
 import com.github.ramilyamar.subsreadfile.dict.Dictionary;
+import com.github.ramilyamar.subsreadfile.file.FileDao;
+import com.github.ramilyamar.subsreadfile.file.FileInfo;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Collection;
@@ -9,21 +12,25 @@ import java.util.SortedSet;
 
 public class SubsLoader {
 
-    private WordsExtractor wordsExtractor;
-    private Dictionary dictionary;
+    private final WordsExtractor wordsExtractor;
+    private final Dictionary dictionary;
+    private final FileDao fileDao;
 
-    public SubsLoader(Dictionary dictionary) {
-        this.wordsExtractor = new SimpleWordsExtractor();
+    public SubsLoader(WordsExtractor wordsExtractor, Dictionary dictionary, FileDao fileDao) {
+        this.fileDao = fileDao;
+        this.wordsExtractor = wordsExtractor;
         this.dictionary = dictionary;
     }
 
-    public long load(String filePath) {
+    public long load(String filePath, long userId, String movieName) {
         try (FileInputStream inputStream = new FileInputStream(filePath)) {
             SortedSet<String> uniqueWords = wordsExtractor.getUniqueWords(inputStream);
             for (String word : uniqueWords) {
                 Collection<String> translations = dictionary.translate(word);
                 System.out.println(word + " - " + translations);
             }
+            String name = new File(filePath).getName();
+            fileDao.createFile(new FileInfo(name, userId, movieName));
         } catch (IOException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

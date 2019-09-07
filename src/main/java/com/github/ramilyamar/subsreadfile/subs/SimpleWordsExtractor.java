@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-class SimpleWordsExtractor implements WordsExtractor {
+public class SimpleWordsExtractor implements WordsExtractor {
 
     @Override
     public SortedSet<String> getUniqueWords(FileInputStream inputStream) {
