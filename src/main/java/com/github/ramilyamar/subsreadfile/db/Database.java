@@ -41,16 +41,6 @@ public class Database {
         }
     }
 
-    @SuppressWarnings("squid:S2095")
-    private PreparedStatement executeStatement(String sql, Object... parameters) throws SQLException {
-        PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        for (int i = 0; i < parameters.length; i++) {
-            statement.setString(i + 1, String.valueOf(parameters[i]));
-        }
-        statement.executeUpdate();
-        return statement;
-    }
-
     public Option<String> getString(String sql, String... parameters) {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             for (int i = 0; i < parameters.length; i++) {
@@ -98,5 +88,15 @@ public class Database {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
+    }
+
+    @SuppressWarnings("squid:S2095")
+    private PreparedStatement executeStatement(String sql, Object... parameters) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+        for (int i = 0; i < parameters.length; i++) {
+            statement.setString(i + 1, String.valueOf(parameters[i]));
+        }
+        statement.executeUpdate();
+        return statement;
     }
 }

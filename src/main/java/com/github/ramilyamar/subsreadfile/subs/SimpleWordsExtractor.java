@@ -14,7 +14,7 @@ public class SimpleWordsExtractor implements WordsExtractor {
     public SortedSet<String> getUniqueWords(FileInputStream inputStream) {
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
 
-        SortedSet<String> uniqueWords = new TreeSet<>(); // сортирует все слова по возрастанию
+        SortedSet<String> uniqueWords = new TreeSet<>();
         try {
             for (String inputString; (inputString = reader.readLine()) != null; ) {
                 String cleaned = inputString.replaceAll("<\\/?\\w+>", "");

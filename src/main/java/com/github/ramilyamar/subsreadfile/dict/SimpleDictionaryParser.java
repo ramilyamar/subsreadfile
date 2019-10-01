@@ -13,10 +13,8 @@ public class SimpleDictionaryParser implements DictionaryParser {
     @Override
     public Dictionary parse(File file) {
         final Map<String, Collection<String>> dictionary = new HashMap<>();
-        try {
-            Stream<String> lines = Files.lines(Paths.get(file.toURI()));
+        try (Stream<String> lines = Files.lines(Paths.get(file.toURI()))){
             State[] previousState = new State[]{State.NONE};
-
             final String[] word = new String[1];
 
             lines.forEach(line -> {
@@ -39,12 +37,14 @@ public class SimpleDictionaryParser implements DictionaryParser {
                         } else
                             savedTranslations.add(translation);
                         break;
+                    default:
+                        System.out.println("Невозможно определить слово и/или перевод");
+                        break;
                 }
             });
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return new HashMapDictionary(dictionary);
     }
 

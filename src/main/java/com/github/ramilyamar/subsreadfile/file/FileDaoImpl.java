@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class FileDaoImpl implements FileDao {
 
     private Database database;
-    private static final String INSERT_SQL = "insert into files (name, userId, movieName) values (?, ?, ?)";
+    private static final String INSERT_SQL = "INSERT INTO files (name, userId, movieName) VALUES (?, ?, ?)";
 
     public FileDaoImpl(Database database) {
         this.database = database;
@@ -22,7 +22,7 @@ public class FileDaoImpl implements FileDao {
 
     @Override
     public Option<FileInfo> getFileInfoById(long id) {
-        String sql = "SELECT NAME, USERID, MOVIENAME FROM FILES WHERE ID = '" + id + "'";
+        String sql = "SELECT name, userId, movieName FROM files WHERE id = '" + id + "'";
         ResultSet resultSet = database.executeQuery(sql);
         try {
             if (!resultSet.next()) {

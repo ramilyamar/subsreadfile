@@ -8,14 +8,14 @@ import java.sql.SQLException;
 
 public class UserDaoImpl implements UserDao {
 
-    private static final String GET_ROLE_SQL = "SELECT ROLE FROM USERS WHERE NAME = ?";
+    private static final String GET_ROLE_SQL = "SELECT role FROM users WHERE name = ?";
     private Database database;
 
     public UserDaoImpl(Database database) {
         this.database = database;
     }
 
-    private static final String INSERT_SQL = "INSERT INTO USERS (NAME, PASSWORD, SALT, ROLE) VALUES (?, ?, ?, ?)";
+    private static final String INSERT_SQL = "INSERT INTO users (name, password, salt, role) VALUES (?, ?, ?, ?)";
 
     @Override
     public long createUser(String name, EncryptedPassword encryptedPassword) {
@@ -25,12 +25,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Option<String> getUserNameById(long id) {
-        return database.getString("SELECT NAME FROM USERS WHERE ID = ?", String.valueOf(id));
+        return database.getString("SELECT name FROM users WHERE id = ?", String.valueOf(id));
     }
 
     @Override
     public Option<UserInfo> getUserInfoByName(String name) {
-        String sql = "SELECT ID, PASSWORD, SALT, ROLE FROM USERS WHERE NAME = '" + name + "'";
+        String sql = "SELECT id, password, salt, role FROM users WHERE name = '" + name + "'";
         ResultSet resultSet = database.executeQuery(sql);
         try {
             if (!resultSet.next()) {

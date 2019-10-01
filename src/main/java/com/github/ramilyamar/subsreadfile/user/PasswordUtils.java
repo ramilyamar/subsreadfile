@@ -24,15 +24,15 @@ public class PasswordUtils {
         return newSecurePassword.equals(encryptedPassword.getPassword());
     }
 
-    private static String encryptPassword(String password, String salt) {
-        byte[] securePassword = hash(password.toCharArray(), salt.getBytes());
-        return Base64.getEncoder().encodeToString(securePassword);
-    }
-
     public static EncryptedPassword encryptPassword(String password) {
         String salt = generateSalt(30);
         String encryptedPassword = encryptPassword(password, salt);
         return new EncryptedPassword(encryptedPassword, salt);
+    }
+
+    private static String encryptPassword(String password, String salt) {
+        byte[] securePassword = hash(password.toCharArray(), salt.getBytes());
+        return Base64.getEncoder().encodeToString(securePassword);
     }
 
     private static String generateSalt(int length) {
@@ -50,7 +50,7 @@ public class PasswordUtils {
             SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
             return skf.generateSecret(spec).getEncoded();
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            throw new AssertionError("Error while hashing a password: " + e.getMessage(), e);
+            throw new AssertionError("Ошибка при хешировании пароля " + e.getMessage(), e);
         } finally {
             spec.clearPassword();
         }
