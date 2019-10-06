@@ -44,8 +44,9 @@ public class Application {
                     return;
                 }
                 switch (command) {
-                    case ADD:
-                        subsLoader.load(tokens[1], currentUser[0].getId(), tokens[2]);
+                    case REG:
+                        userDao.createUser(tokens[1], PasswordUtils.encryptPassword(tokens[2]));
+                        greeting(tokens[1]);
                         break;
                     case LOGIN:
                         Option<UserInfo> userInfo = performLogin(tokens[1], tokens[2]);
@@ -54,17 +55,22 @@ public class Application {
                             currentUser[0] = u;
                         });
                         break;
-                    case REG:
-                        userDao.createUser(tokens[1], PasswordUtils.encryptPassword(tokens[2]));
-                        greeting(tokens[1]);
-                        break;
                     case LOGOUT:
-                        System.out.println("До новых встреч!");
-                        currentRole[0] = Role.ANONYMOUS;
-                        currentUser[0] = null;
-                        break;
+                    System.out.println("До новых встреч!");
+                    currentRole[0] = Role.ANONYMOUS;
+                    currentUser[0] = null;
+                    break;
                     case EXIT:
-                        System.exit(0);
+                    System.exit(0);
+                    case ADD:
+                        subsLoader.load(tokens[1], currentUser[0].getId(), tokens[2]);
+                        break;
+                    case WORDS:
+                        break;
+                    case MOVIES:
+                        break;
+                    case USERS:
+                        break;
                 }
             }).onEmpty(() -> System.out.println("Нет такой команды: " + commandText));
         }

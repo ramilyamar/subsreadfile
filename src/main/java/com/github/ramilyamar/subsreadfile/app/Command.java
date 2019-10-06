@@ -3,13 +3,19 @@ package com.github.ramilyamar.subsreadfile.app;
 import io.vavr.control.Option;
 
 public enum Command {
+    // auth
+    REG("reg"),
+    LOGIN("login"),
+    LOGOUT("logout"),
+    EXIT("exit"),
+
+    // movies
     ADD("add"),
     WORDS("words"),
-    LOGIN("login"),
-    REG("reg"),
-    LOGOUT("logout"),
-    USERS("users"),
-    EXIT("exit");
+    MOVIES("movies"),
+
+    // service
+    USERS("users");
 
     public final String commandName;
 
