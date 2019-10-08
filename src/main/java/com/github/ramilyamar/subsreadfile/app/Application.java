@@ -1,6 +1,7 @@
 package com.github.ramilyamar.subsreadfile.app;
 
 import com.github.ramilyamar.subsreadfile.devutil.NeedsRefactoring;
+import com.github.ramilyamar.subsreadfile.file.FileDao;
 import com.github.ramilyamar.subsreadfile.subs.SubsLoader;
 import com.github.ramilyamar.subsreadfile.user.PasswordUtils;
 import com.github.ramilyamar.subsreadfile.user.Role;
@@ -15,12 +16,14 @@ import java.util.Arrays;
 
 public class Application {
 
-    private SubsLoader subsLoader;
-    private UserDao userDao;
+    private final SubsLoader subsLoader;
+    private final UserDao userDao;
+    private final FileDao fileDao;
 
-    public Application(SubsLoader subsLoader, UserDao userDao) {
+    public Application(SubsLoader subsLoader, UserDao userDao, FileDao fileDao) {
         this.subsLoader = subsLoader;
         this.userDao = userDao;
+        this.fileDao = fileDao;
     }
 
     @SuppressWarnings("squid:S2189")
@@ -62,12 +65,16 @@ public class Application {
                     break;
                     case EXIT:
                     System.exit(0);
+                    break;
                     case ADD:
                         subsLoader.load(tokens[1], currentUser[0].getId(), tokens[2]);
                         break;
                     case WORDS:
                         break;
                     case MOVIES:
+                        fileDao.getMoviesByUserId(currentUser[0].getId()).forEach(movieInfo ->
+                                System.out.println(movieInfo.getFileId() + ": " + movieInfo.getMovieName())
+                        );
                         break;
                     case USERS:
                         break;

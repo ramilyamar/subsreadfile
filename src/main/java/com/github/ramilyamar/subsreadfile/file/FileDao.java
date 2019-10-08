@@ -2,6 +2,8 @@ package com.github.ramilyamar.subsreadfile.file;
 
 import io.vavr.control.Option;
 
+import java.util.List;
+
 public interface FileDao {
     /**
      * Creates and saves file to storage
@@ -17,4 +19,11 @@ public interface FileDao {
      * @return file information by id or {@link Option#none} if file with this id is not found
      */
     Option<FileInfo> getFileInfoById(long id);
+
+    /**
+     * Returns movies by user id
+     * @param userId id of user
+     * @return movies of user or empty list if user is not found
+     */
+    List<MovieInfo> getMoviesByUserId(long userId);
 }

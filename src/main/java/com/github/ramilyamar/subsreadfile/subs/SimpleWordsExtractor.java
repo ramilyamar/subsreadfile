@@ -18,7 +18,7 @@ public class SimpleWordsExtractor implements WordsExtractor {
         try {
             for (String inputString; (inputString = reader.readLine()) != null; ) {
                 String cleaned = inputString.replaceAll("<\\/?\\w+>", "");
-                String[] words = cleaned.split("\\P{L}"); // "letter"
+                String[] words = cleaned.split("\\P{L}");
 
                 for (String word : words) {
                     if (word.length() > 1 && !(word.matches("[0-9]+"))) {

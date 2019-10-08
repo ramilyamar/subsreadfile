@@ -29,7 +29,7 @@ public enum Role {
 
     interface RoleConstants {
         Command[] userCommands = new Command[]{
-                Command.ADD, Command.WORDS, Command.LOGOUT, Command.EXIT
+                Command.ADD, Command.WORDS, Command.MOVIES, Command.LOGOUT, Command.EXIT
         };
     }
 }

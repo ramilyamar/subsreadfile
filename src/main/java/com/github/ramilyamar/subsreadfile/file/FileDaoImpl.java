@@ -5,6 +5,8 @@ import io.vavr.control.Option;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FileDaoImpl implements FileDao {
 
@@ -32,6 +34,25 @@ public class FileDaoImpl implements FileDao {
             long userId = resultSet.getLong("userId");
             String movieName = resultSet.getString("movieName");
             return Option.of(new FileInfo(name, userId, movieName));
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<MovieInfo> getMoviesByUserId(long userId) {
+        List<MovieInfo> movies = new ArrayList<>();
+        String sql = "SELECT id, userId, movieName FROM files WHERE userId = '" + userId + "'";
+        ResultSet resultSet = database.executeQuery(sql);
+        try {
+            while (resultSet.next()) {
+                long id = resultSet.getLong("id");
+                userId = resultSet.getLong("userId");
+                String movieName = resultSet.getString("movieName");
+                movies.add(new MovieInfo(id, userId, movieName));
+            }
+            return movies;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e);

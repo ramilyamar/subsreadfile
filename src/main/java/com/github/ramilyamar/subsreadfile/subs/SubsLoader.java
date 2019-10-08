@@ -17,9 +17,9 @@ public class SubsLoader {
     private final FileDao fileDao;
 
     public SubsLoader(WordsExtractor wordsExtractor, Dictionary dictionary, FileDao fileDao) {
-        this.fileDao = fileDao;
         this.wordsExtractor = wordsExtractor;
         this.dictionary = dictionary;
+        this.fileDao = fileDao;
     }
 
     public long load(String filePath, long userId, String movieName) {
