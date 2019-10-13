@@ -17,7 +17,7 @@ public class SimpleWordsExtractor implements WordsExtractor {
         SortedSet<String> uniqueWords = new TreeSet<>();
         try {
             for (String inputString; (inputString = reader.readLine()) != null; ) {
-                String cleaned = inputString.replaceAll("<\\/?\\w+>", "");
+                String cleaned = inputString.replaceAll("</?\\w+>", "");
                 String[] words = cleaned.split("\\P{L}");
 
                 for (String word : words) {

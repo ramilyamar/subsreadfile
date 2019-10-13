@@ -8,7 +8,6 @@ import java.sql.SQLException;
 
 public class UserDaoImpl implements UserDao {
 
-    private static final String GET_ROLE_SQL = "SELECT role FROM users WHERE name = ?";
     private Database database;
 
     public UserDaoImpl(Database database) {

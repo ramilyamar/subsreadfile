@@ -29,6 +29,18 @@ public class TestDatabase {
                 "FOREIGN KEY (userId) REFERENCES users(id)" +
                 ")");
 
+        database.executeUpdate("create table IF NOT EXISTS words " +
+                "(" +
+                "id INTEGER NOT NULL AUTO_INCREMENT, " +
+                "word VARCHAR(255) NOT NULL, " +
+                "translation VARCHAR(255) NOT NULL, " +
+                "fileId INTEGER NOT NULL, " +
+                "userId INTEGER NOT NULL, " +
+                "learningStatus TINYINT NOT NULL, " +
+                "PRIMARY KEY (id), " +
+                "FOREIGN KEY (fileId) REFERENCES files(id), " +
+                "FOREIGN KEY (userId) REFERENCES users(id)" +
+                ")");
     }
 
     public static TestDatabase getInstance() {
