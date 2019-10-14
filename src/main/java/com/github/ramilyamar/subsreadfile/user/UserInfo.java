@@ -10,7 +10,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class UserInfo {
-    private long id;
-    private Role role;
-    private EncryptedPassword encryptedPassword;
+    private final long id;
+    private final Role role;
+    private final EncryptedPassword encryptedPassword;
 }

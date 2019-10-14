@@ -10,7 +10,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class MovieInfo {
-    private long fileId;
-    private long userId;
-    private String movieName;
+    private final long fileId;
+    private final long userId;
+    private final String movieName;
 }

@@ -13,11 +13,11 @@ import java.util.Collection;
 @AllArgsConstructor
 public class WordInfo {
     private Long id;
-    private String word;
-    private Collection<String> translations;
-    private long fileId;
-    private long userId;
-    private LearningStatus learningStatus;
+    private final String word;
+    private final Collection<String> translations;
+    private final long fileId;
+    private final long userId;
+    private final LearningStatus learningStatus;
 
     public WordInfo(String word, Collection<String> translations, long fileId, long userId,
                     LearningStatus learningStatus) {

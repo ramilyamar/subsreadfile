@@ -15,7 +15,7 @@ public enum Role {
     ANONYMOUS(3, new Command[]{Command.LOGIN, Command.REG, Command.EXIT});
 
     private final int id;
-    // TODO: 25.05.2019 make unmodifiable
+    // TODO: make unmodifiable
     private final Command[] availableCommands;
 
     static Option<Role> fromInt(int roleId) {

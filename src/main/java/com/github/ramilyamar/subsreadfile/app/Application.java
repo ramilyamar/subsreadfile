@@ -80,20 +80,22 @@ public class Application {
                         if (tokens.length == 1) {
                             List<WordInfo> wordsByUserId = wordDao.getWordsByUserId(currentUser[0].getId());
                             Map<String, WordInfo> uniqueWords = new HashMap<>();
-
                             wordsByUserId.forEach(wordInfo ->
                                     uniqueWords.put(wordInfo.getWord(), wordInfo)
                             );
                             uniqueWords.values().forEach(wordInfo ->
-                                    System.out.println(wordInfo.getWord() + " - " + wordInfo.getTranslations())
+                                    System.out.println(wordInfo.getWord() + " - " +
+                                            wordInfo.getTranslations() + " (" +
+                                            wordInfo.getLearningStatus().toString().toLowerCase() + ")")
                             );
                         } else {
                             wordDao.getWordsFromMovieByUserId(Long.parseLong(tokens[1]), currentUser[0].getId())
                                     .forEach(wordInfo ->
-                                            System.out.println(wordInfo.getWord() + " - " + wordInfo.getTranslations())
+                                            System.out.println(wordInfo.getWord() + " - " +
+                                                    wordInfo.getTranslations() + " (" +
+                                                    wordInfo.getLearningStatus().toString().toLowerCase() + ")")
                                     );
                         }
-
                         break;
                     case MOVIES:
                         fileDao.getMoviesByUserId(currentUser[0].getId()).forEach(movieInfo ->

@@ -33,13 +33,19 @@ public class TestDatabase {
                 "(" +
                 "id INTEGER NOT NULL AUTO_INCREMENT, " +
                 "word VARCHAR(255) NOT NULL, " +
-                "translation VARCHAR(255) NOT NULL, " +
-                "fileId INTEGER NOT NULL, " +
+                "translations VARCHAR(255) NOT NULL, " +
                 "userId INTEGER NOT NULL, " +
                 "learningStatus TINYINT NOT NULL, " +
                 "PRIMARY KEY (id), " +
-                "FOREIGN KEY (fileId) REFERENCES files(id), " +
                 "FOREIGN KEY (userId) REFERENCES users(id)" +
+                ")");
+
+        database.executeUpdate("create table IF NOT EXISTS movieWordLink " +
+                "(" +
+                "wordId INTEGER NOT NULL AUTO_INCREMENT, " +
+                "fileId INTEGER NOT NULL, " +
+                "PRIMARY KEY (wordId), " +
+                "FOREIGN KEY (fileId) REFERENCES words(id)" +
                 ")");
     }
 
