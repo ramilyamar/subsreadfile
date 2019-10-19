@@ -15,15 +15,12 @@ public class WordInfo {
     private Long id;
     private final String word;
     private final Collection<String> translations;
-    private final long fileId;
     private final long userId;
     private final LearningStatus learningStatus;
 
-    public WordInfo(String word, Collection<String> translations, long fileId, long userId,
-                    LearningStatus learningStatus) {
+    public WordInfo(String word, Collection<String> translations, long userId, LearningStatus learningStatus) {
         this.word = word;
         this.translations = translations;
-        this.fileId = fileId;
         this.userId = userId;
         this.learningStatus = learningStatus;
     }

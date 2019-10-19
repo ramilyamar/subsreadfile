@@ -19,7 +19,7 @@ public class FileDaoImpl implements FileDao {
 
     @Override
     public long createFile(FileInfo fileInfo) {
-        return database.insert(INSERT_SQL, fileInfo.getName(), fileInfo.getUserId(), fileInfo.getMovieName());
+        return database.insertAndGetId(INSERT_SQL, fileInfo.getName(), fileInfo.getUserId(), fileInfo.getMovieName());
     }
 
     @Override

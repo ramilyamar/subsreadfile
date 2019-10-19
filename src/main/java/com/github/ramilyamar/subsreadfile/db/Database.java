@@ -27,7 +27,7 @@ public class Database {
         }
     }
 
-    public long insert(String sql, Object... parameters) {
+    public long insertAndGetId(String sql, Object... parameters) {
         try (PreparedStatement statement = executeStatement(sql, parameters);
              ResultSet generatedKeys = statement.getGeneratedKeys()) {
             if (generatedKeys.next()) {
@@ -35,6 +35,15 @@ public class Database {
             } else {
                 throw new RuntimeException("Ошибка при создании сущности");
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void insert(String sql, Object... parameters) {
+        try (PreparedStatement ignored = executeStatement(sql, parameters)) {
+
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException(e);

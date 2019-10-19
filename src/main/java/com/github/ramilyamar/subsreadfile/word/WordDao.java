@@ -4,7 +4,7 @@ import java.util.List;
 
 public interface WordDao {
 
-    long saveWord(WordInfo wordInfo);
+    long getOrSaveWord(WordInfo wordInfo);
 
     List<WordInfo> getWordsByUserId(long userId);
 

@@ -5,7 +5,7 @@ import io.vavr.control.Option;
 public interface UserDao {
 
     /**
-     * Creates and saves user to storage
+     * Creates and saves user to storage.
      *
      * @param name              name of user to create
      * @param encryptedPassword encrypted password
@@ -15,7 +15,7 @@ public interface UserDao {
     long createUser(String name, EncryptedPassword encryptedPassword);
 
     /**
-     * Returns name of user by id
+     * Returns name of user by id.
      *
      * @param id id of user
      * @return name of user by id or {@link Option#none} if user with this id is not found
@@ -23,7 +23,7 @@ public interface UserDao {
     Option<String> getUserNameById(long id);
 
     /**
-     * Returns user information by name
+     * Returns user information by name.
      *
      * @param name name of user
      * @return user information by name or {@link Option#none} if user with this name is not found

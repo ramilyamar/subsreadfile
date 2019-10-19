@@ -4,6 +4,7 @@ import com.github.ramilyamar.subsreadfile.dict.Dictionary;
 import com.github.ramilyamar.subsreadfile.file.FileDao;
 import com.github.ramilyamar.subsreadfile.file.FileInfo;
 import com.github.ramilyamar.subsreadfile.word.LearningStatus;
+import com.github.ramilyamar.subsreadfile.word.MovieWordLinkDao;
 import com.github.ramilyamar.subsreadfile.word.WordDao;
 import com.github.ramilyamar.subsreadfile.word.WordInfo;
 
@@ -19,12 +20,15 @@ public class SubsLoader {
     private final Dictionary dictionary;
     private final FileDao fileDao;
     private final WordDao wordDao;
+    private final MovieWordLinkDao linkDao;
 
-    public SubsLoader(WordsExtractor wordsExtractor, Dictionary dictionary, FileDao fileDao, WordDao wordDao) {
+    public SubsLoader(WordsExtractor wordsExtractor, Dictionary dictionary, FileDao fileDao,
+                      WordDao wordDao, MovieWordLinkDao linkDao) {
         this.wordsExtractor = wordsExtractor;
         this.dictionary = dictionary;
         this.fileDao = fileDao;
         this.wordDao = wordDao;
+        this.linkDao = linkDao;
     }
 
     public long load(String filePath, long userId, String movieName) {
@@ -35,7 +39,9 @@ public class SubsLoader {
             for (String word : uniqueWords) {
                 Collection<String> translations = dictionary.translate(word);
                 System.out.println(word + " - " + translations);
-                wordDao.saveWord(new WordInfo(word, translations, fileId, userId, LearningStatus.NEW_WORD));
+                WordInfo wordInfo = new WordInfo(word, translations, userId, LearningStatus.NEW_WORD);
+                long wordId = wordDao.getOrSaveWord(wordInfo);
+                linkDao.saveMovieWord(wordId, fileId);
             }
             return fileId;
         } catch (IOException e) {

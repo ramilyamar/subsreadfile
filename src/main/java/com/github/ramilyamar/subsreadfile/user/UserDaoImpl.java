@@ -18,7 +18,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public long createUser(String name, EncryptedPassword encryptedPassword) {
-        return database.insert(INSERT_SQL, name, encryptedPassword.getPassword(),
+        return database.insertAndGetId(INSERT_SQL, name, encryptedPassword.getPassword(),
                 encryptedPassword.getSalt(), Role.USER.getId());
     }
 

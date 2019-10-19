@@ -42,10 +42,11 @@ public class TestDatabase {
 
         database.executeUpdate("create table IF NOT EXISTS movieWordLink " +
                 "(" +
-                "wordId INTEGER NOT NULL AUTO_INCREMENT, " +
+                "wordId INTEGER NOT NULL, " +
                 "fileId INTEGER NOT NULL, " +
-                "PRIMARY KEY (wordId), " +
-                "FOREIGN KEY (fileId) REFERENCES words(id)" +
+                "PRIMARY KEY (wordId, fileId), " +
+                "FOREIGN KEY (wordId) REFERENCES words(id), " +
+                "FOREIGN KEY (fileId) REFERENCES files(id)" +
                 ")");
     }
 
