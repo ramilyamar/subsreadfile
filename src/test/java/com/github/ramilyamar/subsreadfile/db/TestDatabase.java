@@ -10,7 +10,7 @@ public class TestDatabase {
     private Database database;
 
     private TestDatabase() {
-        database = new Database();
+        database = new DatabaseImpl();
         database.executeUpdate("create table IF NOT EXISTS users " +
                 "(id INTEGER NOT NULL AUTO_INCREMENT, " +
                 "name VARCHAR(255) UNIQUE, " +
