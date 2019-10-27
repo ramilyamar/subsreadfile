@@ -1,14 +1,13 @@
 package com.github.ramilyamar.subsreadfile.dict;
 
+import lombok.AllArgsConstructor;
+
 import java.util.*;
 
+@AllArgsConstructor
 public class HashMapDictionary implements Dictionary {
 
     private Map<String, Collection<String>> dictionary;
-
-    HashMapDictionary(Map<String, Collection<String>> dictionary) {
-        this.dictionary = dictionary;
-    }
 
     @Override
     public Collection<String> translate(String word) {

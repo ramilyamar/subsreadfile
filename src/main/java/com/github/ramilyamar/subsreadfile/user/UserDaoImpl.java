@@ -2,17 +2,15 @@ package com.github.ramilyamar.subsreadfile.user;
 
 import com.github.ramilyamar.subsreadfile.db.Database;
 import io.vavr.control.Option;
+import lombok.AllArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+@AllArgsConstructor
 public class UserDaoImpl implements UserDao {
 
-    private Database database;
-
-    public UserDaoImpl(Database database) {
-        this.database = database;
-    }
+    private final Database database;
 
     private static final String INSERT_SQL = "INSERT INTO users (name, password, salt, role) VALUES (?, ?, ?, ?)";
 

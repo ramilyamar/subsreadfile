@@ -1,40 +1,33 @@
 package com.github.ramilyamar.subsreadfile.app;
 
-import com.github.ramilyamar.subsreadfile.devutil.NeedsRefactoring;
-import com.github.ramilyamar.subsreadfile.file.FileDao;
-import com.github.ramilyamar.subsreadfile.subs.SubsLoader;
-import com.github.ramilyamar.subsreadfile.user.PasswordUtils;
-import com.github.ramilyamar.subsreadfile.user.Role;
-import com.github.ramilyamar.subsreadfile.user.UserDao;
-import com.github.ramilyamar.subsreadfile.user.UserInfo;
-import com.github.ramilyamar.subsreadfile.word.WordDao;
+import com.github.ramilyamar.subsreadfile.file.MovieInfo;
+import com.github.ramilyamar.subsreadfile.file.MoviesCommand;
+import com.github.ramilyamar.subsreadfile.subs.AddCommand;
+import com.github.ramilyamar.subsreadfile.user.*;
 import com.github.ramilyamar.subsreadfile.word.WordInfo;
+import com.github.ramilyamar.subsreadfile.word.WordsCommand;
 import io.vavr.control.Option;
+import lombok.AllArgsConstructor;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
-import java.util.HashMap;
+import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
+@AllArgsConstructor
 public class Application {
 
-    private final SubsLoader subsLoader;
-    private final UserDao userDao;
-    private final FileDao fileDao;
-    private final WordDao wordDao;
-
-    public Application(SubsLoader subsLoader, UserDao userDao, FileDao fileDao, WordDao wordDao) {
-        this.subsLoader = subsLoader;
-        this.userDao = userDao;
-        this.fileDao = fileDao;
-        this.wordDao = wordDao;
-    }
+    private final RegCommand regCommand;
+    private final LoginCommand loginCommand;
+    private final LogoutCommand logoutCommand;
+    private final AddCommand addCommand;
+    private final WordsCommand wordsCommand;
+    private final MoviesCommand moviesCommand;
+    private final CommandLineViewer clViewer;
 
     @SuppressWarnings("squid:S2189")
-    @NeedsRefactoring("S2T1")
     public void run() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -55,70 +48,37 @@ public class Application {
                 }
                 switch (command) {
                     case REG:
-                        userDao.createUser(tokens[1], PasswordUtils.encryptPassword(tokens[2]));
-                        greeting(tokens[1]);
+                        regCommand.execute(tokens);
+                        System.out.println(clViewer.createRegView());
                         break;
                     case LOGIN:
-                        Option<UserInfo> userInfo = performLogin(tokens[1], tokens[2]);
-                        userInfo.onDefined(u -> {
-                            currentRole[0] = u.getRole();
-                            currentUser[0] = u;
-                        });
+                        LoginResult result = loginCommand.execute(currentRole, currentUser, tokens);
+                        System.out.println(clViewer.createLoginView(tokens[1], result));
                         break;
                     case LOGOUT:
-                        System.out.println("До новых встреч!");
-                        currentRole[0] = Role.ANONYMOUS;
-                        currentUser[0] = null;
+                        logoutCommand.execute(currentRole, currentUser);
+                        System.out.println(clViewer.createLogoutView());
                         break;
                     case EXIT:
+                        System.out.println(clViewer.createExitView());
                         System.exit(0);
                         break;
                     case ADD:
-                        subsLoader.load(tokens[1], currentUser[0].getId(), tokens[2]);
+                        long fileId = addCommand.execute(tokens[1], currentUser[0].getId(), tokens[2]);
+                        System.out.println(clViewer.createAddView(fileId));
                         break;
                     case WORDS:
-                        if (tokens.length == 1) {
-                            List<WordInfo> wordsByUserId = wordDao.getWordsByUserId(currentUser[0].getId());
-                            Map<String, WordInfo> uniqueWords = new HashMap<>();
-                            wordsByUserId.forEach(wordInfo ->
-                                    uniqueWords.put(wordInfo.getWord(), wordInfo)
-                            );
-                            uniqueWords.values().forEach(wordInfo ->
-                                    System.out.println(wordInfo.getWord() + " - " +
-                                            wordInfo.getTranslations() + " (" +
-                                            wordInfo.getLearningStatus().toString().toLowerCase() + ")")
-                            );
-                        } else {
-                            wordDao.getWordsFromMovieByUserId(Long.parseLong(tokens[1]), currentUser[0].getId())
-                                    .forEach(wordInfo ->
-                                            System.out.println(wordInfo.getWord() + " - " +
-                                                    wordInfo.getTranslations() + " (" +
-                                                    wordInfo.getLearningStatus().toString().toLowerCase() + ")")
-                                    );
-                        }
+                        Collection<WordInfo> wordInfoList = wordsCommand.execute(currentUser, tokens);
+                        System.out.println(clViewer.createWordView(wordInfoList));
                         break;
                     case MOVIES:
-                        fileDao.getMoviesByUserId(currentUser[0].getId()).forEach(movieInfo ->
-                                System.out.println(movieInfo.getFileId() + ": " + movieInfo.getMovieName())
-                        );
+                        List<MovieInfo> movieInfoList = moviesCommand.execute(currentUser[0]);
+                        System.out.println(clViewer.createMovieView(movieInfoList));
                         break;
                     case USERS:
                         break;
                 }
             }).onEmpty(() -> System.out.println("Нет такой команды: " + commandText));
         }
-    }
-
-    private Option<UserInfo> performLogin(String username, String password) {
-        return userDao.getUserInfoByName(username)
-                .onDefined(userInfo -> {
-                    if (PasswordUtils.verifyUserPassword(password, userInfo.getEncryptedPassword()))
-                        greeting(username);
-                    else System.out.println("Неверный пароль");
-                }).onEmpty(() -> System.out.println("Пользователь не найден"));
-    }
-
-    private void greeting(String name) {
-        System.out.println("Добро пожаловать, " + name + "!");
     }
 }

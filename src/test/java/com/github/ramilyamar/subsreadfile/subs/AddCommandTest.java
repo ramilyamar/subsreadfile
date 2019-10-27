@@ -27,7 +27,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.junit.jupiter.api.Assertions.*;
 
-class SubsLoaderTest {
+class AddCommandTest {
     private UserDaoImpl userDao = new UserDaoImpl(TestDatabase.getInstance().getDatabase());
     private WordsExtractor wordsExtractor = new SimpleWordsExtractor();
     private Dictionary dictionary = new SimpleDictionaryParser()
@@ -35,7 +35,7 @@ class SubsLoaderTest {
     private FileDao fileDao = new FileDaoImpl(TestDatabase.getInstance().getDatabase());
     private MovieWordLinkDao linkDao = new MovieWordLinkDaoImpl(TestDatabase.getInstance().getDatabase());
     private WordDao wordDao = new WordDaoImpl(TestDatabase.getInstance().getDatabase());
-    private SubsLoader subsLoader = new SubsLoader(wordsExtractor, dictionary, fileDao, wordDao, linkDao);
+    private AddCommand addCommand = new AddCommand(wordsExtractor, dictionary, fileDao, wordDao, linkDao);
 
     @TempDir
     Path tempDir;
@@ -44,7 +44,7 @@ class SubsLoaderTest {
     void load() {
         String file = "src/test/resources/example.srt";
         long userId = userDao.createUser("Name", new EncryptedPassword("2", "2"));
-        long fileId = subsLoader.load(file, userId, "HP");
+        long fileId = addCommand.execute(file, userId, "HP");
 
         Option<FileInfo> createdFile = fileDao.getFileInfoById(fileId);
         assertEquals("HP", createdFile.get().getMovieName());
@@ -76,7 +76,7 @@ class SubsLoaderTest {
             lines.add("");
         }
         Files.write(path, lines);
-        return subsLoader.load(path.toString(), userId, "movie name");
+        return addCommand.execute(path.toString(), userId, "movie name");
     }
 
     private List<String> getWords(List<WordInfo> list) {
