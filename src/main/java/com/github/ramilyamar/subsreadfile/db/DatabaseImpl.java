@@ -27,6 +27,7 @@ public class DatabaseImpl implements Database {
         }
     }
 
+    @Override
     public long insertAndGetId(String sql, Object... parameters) {
         try (PreparedStatement statement = executeStatement(sql, parameters);
              ResultSet generatedKeys = statement.getGeneratedKeys()) {
@@ -41,6 +42,7 @@ public class DatabaseImpl implements Database {
         }
     }
 
+    @Override
     public void insert(String sql, Object... parameters) {
         try (PreparedStatement ignored = executeStatement(sql, parameters)) {
 
@@ -50,6 +52,7 @@ public class DatabaseImpl implements Database {
         }
     }
 
+    @Override
     public Option<String> getString(String sql, String... parameters) {
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             for (int i = 0; i < parameters.length; i++) {
@@ -65,6 +68,7 @@ public class DatabaseImpl implements Database {
         }
     }
 
+    @Override
     public void executeUpdate(String sql) {
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate(sql);
@@ -74,6 +78,7 @@ public class DatabaseImpl implements Database {
         }
     }
 
+    @Override
     public ResultSet executeQuery(String sql) {
         try {
             Statement statement = connection.createStatement();
