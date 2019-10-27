@@ -13,4 +13,8 @@ public class MovieInfo {
     private final long fileId;
     private final long userId;
     private final String movieName;
+
+    public String getStringView() {
+        return fileId + ": " + movieName;
+    }
 }

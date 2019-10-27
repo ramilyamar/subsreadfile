@@ -1,15 +1,13 @@
 package com.github.ramilyamar.subsreadfile.word;
 
 import com.github.ramilyamar.subsreadfile.db.Database;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class MovieWordLinkDaoImpl implements MovieWordLinkDao {
 
-    private Database database;
+    private final Database database;
     private static final String INSERT_SQL = "INSERT INTO movieWordLink (wordId, fileId) VALUES (?, ?)";
-
-    public MovieWordLinkDaoImpl(Database database) {
-        this.database = database;
-    }
 
     @Override
     public void saveMovieWord(long wordId, long fileId) {

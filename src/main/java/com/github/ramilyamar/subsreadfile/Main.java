@@ -1,14 +1,16 @@
 package com.github.ramilyamar.subsreadfile;
 
 import com.github.ramilyamar.subsreadfile.app.Application;
+import com.github.ramilyamar.subsreadfile.app.CommandLineViewer;
 import com.github.ramilyamar.subsreadfile.db.Database;
 import com.github.ramilyamar.subsreadfile.db.DatabaseImpl;
 import com.github.ramilyamar.subsreadfile.dict.SimpleDictionaryParser;
 import com.github.ramilyamar.subsreadfile.file.FileDao;
 import com.github.ramilyamar.subsreadfile.file.FileDaoImpl;
+import com.github.ramilyamar.subsreadfile.file.MoviesCommand;
 import com.github.ramilyamar.subsreadfile.subs.SimpleWordsExtractor;
-import com.github.ramilyamar.subsreadfile.subs.SubsLoader;
-import com.github.ramilyamar.subsreadfile.user.UserDaoImpl;
+import com.github.ramilyamar.subsreadfile.subs.AddCommand;
+import com.github.ramilyamar.subsreadfile.user.*;
 import com.github.ramilyamar.subsreadfile.word.*;
 
 import java.io.File;
@@ -23,17 +25,22 @@ public class Main {
         MovieWordLinkDao linkDao = new MovieWordLinkDaoImpl(database);
         FileDao fileDao = new FileDaoImpl(database);
         WordDao wordDao = new WordDaoImpl(database);
+        UserDao userDao = new UserDaoImpl(database);
+
         Application app = new Application(
-                new SubsLoader(
+                new RegCommand(userDao),
+                new LoginCommand(userDao),
+                new LogoutCommand(),
+                new AddCommand(
                         new SimpleWordsExtractor(),
                         new SimpleDictionaryParser()
                                 .parse(new File(args.length > 0 ? args[0] : defaultDictionary)),
                         fileDao,
                         wordDao,
                         linkDao),
-                new UserDaoImpl(database),
-                fileDao,
-                new WordsCommand(wordDao));
+                new WordsCommand(wordDao),
+                new MoviesCommand(fileDao),
+                new CommandLineViewer());
         app.run();
     }
 }

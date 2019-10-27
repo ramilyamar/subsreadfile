@@ -1,19 +1,17 @@
 package com.github.ramilyamar.subsreadfile.word;
 
 import com.github.ramilyamar.subsreadfile.db.Database;
+import lombok.AllArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 
+@AllArgsConstructor
 public class WordDaoImpl implements WordDao {
-    private Database database;
+    private final Database database;
     private static final String INSERT_SQL =
             "INSERT INTO words (word, translations, userId, learningStatus) VALUES (?, ?, ?, ?)";
-
-    public WordDaoImpl(Database database) {
-        this.database = database;
-    }
 
     @Override
     public long getOrSaveWord(WordInfo wordInfo) {
