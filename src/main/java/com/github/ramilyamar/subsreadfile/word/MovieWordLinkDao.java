@@ -4,6 +4,7 @@ public interface MovieWordLinkDao {
 
     /**
      * Creates and saves word to storage.
+     *
      * @param wordId id of word
      * @param fileId id of file
      */

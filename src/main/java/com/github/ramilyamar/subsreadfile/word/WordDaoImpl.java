@@ -9,6 +9,7 @@ import java.util.*;
 
 @AllArgsConstructor
 public class WordDaoImpl implements WordDao {
+
     private final Database database;
     private static final String INSERT_SQL =
             "INSERT INTO words (word, translations, userId, learningStatus) VALUES (?, ?, ?, ?)";

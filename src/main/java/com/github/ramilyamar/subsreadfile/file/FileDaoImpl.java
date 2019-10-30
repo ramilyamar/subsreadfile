@@ -2,20 +2,18 @@ package com.github.ramilyamar.subsreadfile.file;
 
 import com.github.ramilyamar.subsreadfile.db.Database;
 import io.vavr.control.Option;
+import lombok.AllArgsConstructor;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 public class FileDaoImpl implements FileDao {
 
-    private Database database;
+    private final Database database;
     private static final String INSERT_SQL = "INSERT INTO files (name, userId, movieName) VALUES (?, ?, ?)";
-
-    public FileDaoImpl(Database database) {
-        this.database = database;
-    }
 
     @Override
     public long createFile(FileInfo fileInfo) {

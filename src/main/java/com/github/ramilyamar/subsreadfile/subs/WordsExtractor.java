@@ -7,6 +7,7 @@ interface WordsExtractor {
 
     /**
      * Returns set of unique words from file subs in alphabetical order.
+     *
      * @param inputStream subs file
      * @return set of unique words from file subs by alphabetical order
      */
