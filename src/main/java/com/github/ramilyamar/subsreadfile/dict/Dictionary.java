@@ -2,12 +2,16 @@ package com.github.ramilyamar.subsreadfile.dict;
 
 import java.util.Collection;
 
+/**
+ * The {@code Dictionary} interface represents translation dictionary, for example, English-Russian dictionary.
+ */
 public interface Dictionary {
 
     /**
-     * Translates word by getting value from Map dictionary.
+     * Translates word.
+     *
      * @param word word from subs file
-     * @return translation of word
+     * @return translations of word
      */
     Collection<String> translate(String word);
 }

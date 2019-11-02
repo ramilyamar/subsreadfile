@@ -6,10 +6,10 @@ import java.util.SortedSet;
 interface WordsExtractor {
 
     /**
-     * Returns set of unique words from file subs in alphabetical order.
+     * Returns set of unique words from subs file in alphabetical order.
      *
      * @param inputStream subs file
-     * @return set of unique words from file subs by alphabetical order
+     * @return set of unique words from subs file by alphabetical order
      */
     SortedSet<String> getUniqueWords(FileInputStream inputStream);
 }

@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 
 import java.util.*;
 
+/**
+ * Dictionary implementation based on {@link HashMap}.
+ */
 @AllArgsConstructor
 public class HashMapDictionary implements Dictionary {
 

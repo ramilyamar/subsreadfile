@@ -24,6 +24,14 @@ public class AddCommand {
     private final WordDao wordDao;
     private final MovieWordLinkDao linkDao;
 
+    /**
+     * Returns id of subs file and saves word information from loaded file in storage.
+     *
+     * @param filePath  subs file path
+     * @param userId    id of user
+     * @param movieName name of movie
+     * @return id of subs file
+     */
     public long execute(String filePath, long userId, String movieName) {
         try (FileInputStream inputStream = new FileInputStream(filePath)) {
             SortedSet<String> uniqueWords = wordsExtractor.getUniqueWords(inputStream);

@@ -1,5 +1,9 @@
 package com.github.ramilyamar.subsreadfile.word;
 
+/**
+ * The {@code MovieWordLinkDao} interface provides methods to process data
+ * about words from concrete movies of user.
+ */
 public interface MovieWordLinkDao {
 
     /**

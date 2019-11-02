@@ -8,6 +8,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The {@code CommandLineViewer} class provides methods for creating messages for user about result of user's command
+ * in the command line.
+ */
 public class CommandLineViewer implements Viewer {
 
     @Override
@@ -45,7 +49,7 @@ public class CommandLineViewer implements Viewer {
     }
 
     @Override
-    public String createWordView(Collection<WordInfo> wordInfoList) {
+    public String createWordsView(Collection<WordInfo> wordInfoList) {
         return wordInfoList
                 .stream()
                 .map(WordInfo::getStringView)
@@ -53,7 +57,7 @@ public class CommandLineViewer implements Viewer {
     }
 
     @Override
-    public String createMovieView(List<MovieInfo> movieInfoList) {
+    public String createMoviesView(List<MovieInfo> movieInfoList) {
         return movieInfoList
                 .stream()
                 .map(MovieInfo::getStringView)

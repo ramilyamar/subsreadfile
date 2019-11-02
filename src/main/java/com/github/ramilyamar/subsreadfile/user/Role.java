@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.commons.lang3.ArrayUtils;
 
+/**
+ * The constants of {@code Role} enum provide a list of the roles.
+ */
 @Getter
 @AllArgsConstructor
 public enum Role {

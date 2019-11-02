@@ -5,9 +5,10 @@ import java.io.File;
 public interface DictionaryParser {
 
     /**
-     * Converts dictionary file to Map dictionary where word is key and translation is value
+     * Converts dictionary file to instance of {@link Dictionary}.
+     *
      * @param file dictionary file
-     * @return Map dictionary
+     * @return translation dictionary
      */
     Dictionary parse(File file);
 }

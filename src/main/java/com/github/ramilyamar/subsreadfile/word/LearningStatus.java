@@ -4,6 +4,9 @@ import io.vavr.control.Option;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+/**
+ * The constants of {@code LearningStatus} enum provide a list of the word status of learning.
+ */
 @Getter
 @AllArgsConstructor
 public enum LearningStatus {

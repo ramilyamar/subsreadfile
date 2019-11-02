@@ -16,6 +16,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * The {@code Application} class reads commands of user from command line and provides result of commands.
+ */
 @AllArgsConstructor
 public class Application {
 
@@ -27,12 +30,23 @@ public class Application {
     private final MoviesCommand moviesCommand;
     private final CommandLineViewer clViewer;
 
+    /**
+     * Array keeps one current role.
+     *
+     * @implNote Array is workaround to use mutable variable inside lambda.
+     */
+    static final Role[] currentRole = new Role[]{Role.ANONYMOUS};
+
+    /**
+     * Array keeps one current user.
+     *
+     * @implNote Array is workaround to use mutable variable inside lambda.
+     */
+    static final UserInfo[] currentUser = new UserInfo[]{null};
+
     @SuppressWarnings("squid:S2189")
     public void run() throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-        final Role[] currentRole = new Role[]{Role.ANONYMOUS};
-        final UserInfo[] currentUser = new UserInfo[]{null};
 
         while (true) {
             String fullCommand = reader.readLine();
@@ -69,11 +83,11 @@ public class Application {
                         break;
                     case WORDS:
                         Collection<WordInfo> wordInfoList = wordsCommand.execute(currentUser, tokens);
-                        System.out.println(clViewer.createWordView(wordInfoList));
+                        System.out.println(clViewer.createWordsView(wordInfoList));
                         break;
                     case MOVIES:
                         List<MovieInfo> movieInfoList = moviesCommand.execute(currentUser[0]);
-                        System.out.println(clViewer.createMovieView(movieInfoList));
+                        System.out.println(clViewer.createMoviesView(movieInfoList));
                         break;
                     case USERS:
                         break;

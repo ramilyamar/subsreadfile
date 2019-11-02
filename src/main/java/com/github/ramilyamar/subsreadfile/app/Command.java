@@ -1,7 +1,12 @@
 package com.github.ramilyamar.subsreadfile.app;
 
 import io.vavr.control.Option;
+import lombok.AllArgsConstructor;
 
+/**
+ * The constants of {@code Command} enum provide a list of the commands.
+ */
+@AllArgsConstructor
 public enum Command {
     // auth
     REG("reg"),
@@ -18,10 +23,6 @@ public enum Command {
     USERS("users");
 
     public final String commandName;
-
-    Command(String commandName) {
-        this.commandName = commandName;
-    }
 
     public static Option<Command> fromString(String commandName) {
         for (Command command : Command.values()) {

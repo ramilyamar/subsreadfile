@@ -10,6 +10,7 @@ import lombok.ToString;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class EncryptedPassword {
+
     private final String password;
     private final String salt;
 }

@@ -8,12 +8,23 @@ import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Stream;
 
+/**
+ * The {@code SimpleDictionaryParser} parses dictionary of specified format:
+ * <pre> book /buk/
+ * книга
+ * beam /biːm/
+ * балка, бревно, брус
+ * blank /blæŋk/
+ * 1. белый
+ * 2. анкета, бланк
+ * </pre>
+ */
 public class SimpleDictionaryParser implements DictionaryParser {
 
     @Override
     public Dictionary parse(File file) {
         final Map<String, Collection<String>> dictionary = new HashMap<>();
-        try (Stream<String> lines = Files.lines(Paths.get(file.toURI()))){
+        try (Stream<String> lines = Files.lines(Paths.get(file.toURI()))) {
             State[] previousState = new State[]{State.NONE};
             final String[] word = new String[1];
 

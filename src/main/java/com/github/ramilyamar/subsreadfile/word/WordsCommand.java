@@ -13,6 +13,15 @@ public class WordsCommand {
 
     private final WordDao wordDao;
 
+    /**
+     * Returns list of all words of user if user didn't enter specified id of file,
+     * or list of words from specified movie.
+     *
+     * @param currentUser current user
+     * @param tokens      parts of full command in the command line
+     * @return list of all words of user if user didn't enter specified id of file,
+     * or list of words from specified movie
+     */
     public Collection<WordInfo> execute(UserInfo[] currentUser, String[] tokens) {
         if (tokens.length == 1) {
             List<WordInfo> wordsByUserId = wordDao.getWordsByUserId(currentUser[0].getId());
