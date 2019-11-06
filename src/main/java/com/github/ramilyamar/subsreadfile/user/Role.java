@@ -30,8 +30,12 @@ public enum Role {
         return Option.none();
     }
 
-    interface RoleConstants {
-        Command[] userCommands = new Command[]{
+    static final class RoleConstants {
+
+        private RoleConstants() {
+        }
+
+        static final Command[] userCommands = new Command[]{
                 Command.ADD, Command.WORDS, Command.MOVIES, Command.LOGOUT, Command.EXIT
         };
     }

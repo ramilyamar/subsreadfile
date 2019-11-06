@@ -5,7 +5,7 @@ import io.vavr.control.Option;
 import java.sql.ResultSet;
 
 /**
- * The {@code Database} interface provides methods for processing of SQL queries.
+ * The {@code Database} interface provides methods to process SQL queries.
  */
 public interface Database {
 

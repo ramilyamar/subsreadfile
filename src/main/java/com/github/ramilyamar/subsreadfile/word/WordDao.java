@@ -3,7 +3,7 @@ package com.github.ramilyamar.subsreadfile.word;
 import java.util.List;
 
 /**
- * The {@code WordDao} interface provides methods to process data about user's words.
+ * The {@code WordDao} interface provides methods to save and get data about user's words.
  */
 public interface WordDao {
 

@@ -3,7 +3,7 @@ package com.github.ramilyamar.subsreadfile.user;
 import io.vavr.control.Option;
 
 /**
- * The {@code UserDao} interface provides methods to process data related to users.
+ * The {@code UserDao} interface provides methods to save and get data related to users.
  */
 public interface UserDao {
 

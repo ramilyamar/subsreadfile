@@ -5,7 +5,7 @@ import io.vavr.control.Option;
 import java.util.List;
 
 /**
- * The {@code FileDao} interface provides methods to process data about subs files.
+ * The {@code FileDao} interface provides methods to save and get data about subs files.
  */
 public interface FileDao {
 
