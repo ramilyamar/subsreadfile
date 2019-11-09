@@ -9,6 +9,14 @@ import java.util.Arrays;
 import java.util.Base64;
 import java.util.Random;
 
+/**
+ * The {@code PasswordUtils} class provides methods for encryption of password. The methods of this class create
+ * secure password that consists of 2 parts - encrypted password and salt.
+ * <p>Salt makes password more safe. Salt randomizes passwords.
+ * Even if there 2 identical passwords from 2 different users in database, then the salt is not identical.
+ * <p>Thereby, there is very low risk of cracking a password using identical encrypted passwords from
+ * different users.
+ */
 public class PasswordUtils {
 
     private PasswordUtils() {

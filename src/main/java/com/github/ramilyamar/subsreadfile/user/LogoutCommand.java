@@ -1,5 +1,9 @@
 package com.github.ramilyamar.subsreadfile.user;
 
+/**
+ * The {@code LogoutCommand} class provides method for logout.
+ * This class is needed to execute the command {@link com.github.ramilyamar.subsreadfile.app.Command#LOGOUT}.
+ */
 public class LogoutCommand {
 
     /**

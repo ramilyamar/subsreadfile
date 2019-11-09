@@ -2,6 +2,10 @@ package com.github.ramilyamar.subsreadfile.user;
 
 import lombok.AllArgsConstructor;
 
+/**
+ * The {@code RegCommand} class provides method for creating and saving user to storage during registration.
+ * This class is needed to execute the command {@link com.github.ramilyamar.subsreadfile.app.Command#REG}.
+ */
 @AllArgsConstructor
 public class RegCommand {
 

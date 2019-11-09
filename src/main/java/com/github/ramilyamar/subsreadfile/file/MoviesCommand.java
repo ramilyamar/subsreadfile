@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 
 import java.util.List;
 
+/**
+ * The {@code MoviesCommand} class provides method for getting of user's movie list.
+ * This class is needed to execute the command {@link com.github.ramilyamar.subsreadfile.app.Command#MOVIES}.
+ */
 @AllArgsConstructor
 public class MoviesCommand {
 

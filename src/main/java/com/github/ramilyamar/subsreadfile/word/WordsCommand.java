@@ -8,6 +8,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * The {@code WordsCommand} class provides method for getting of user's words list.
+ * This class is needed to execute the command {@link com.github.ramilyamar.subsreadfile.app.Command#WORDS}.
+ */
 @AllArgsConstructor
 public class WordsCommand {
 

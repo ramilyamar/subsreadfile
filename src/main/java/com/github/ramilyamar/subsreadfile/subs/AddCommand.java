@@ -15,6 +15,10 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.SortedSet;
 
+/**
+ * The {@code AddCommand} class provides method for saving word information from loaded subs file.
+ * This class is needed to execute the command {@link com.github.ramilyamar.subsreadfile.app.Command#ADD}.
+ */
 @AllArgsConstructor
 public class AddCommand {
 

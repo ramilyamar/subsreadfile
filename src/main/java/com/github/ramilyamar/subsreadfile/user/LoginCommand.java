@@ -3,6 +3,10 @@ package com.github.ramilyamar.subsreadfile.user;
 import io.vavr.control.Option;
 import lombok.AllArgsConstructor;
 
+/**
+ * The {@code LoginCommand} class provides method for performing authentication.
+ * This class is needed to execute the command {@link com.github.ramilyamar.subsreadfile.app.Command#LOGIN}.
+ */
 @AllArgsConstructor
 public class LoginCommand {
 
