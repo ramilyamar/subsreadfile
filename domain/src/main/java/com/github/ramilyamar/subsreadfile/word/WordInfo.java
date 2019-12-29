@@ -28,8 +28,4 @@ public class WordInfo {
         this.userId = userId;
         this.learningStatus = learningStatus;
     }
-
-    public String getStringView() {
-        return word + " - " + translations + " (" + learningStatus.toString().toLowerCase() + ")";
-    }
 }

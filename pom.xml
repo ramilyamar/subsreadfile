@@ -11,6 +11,6 @@
 
     <modules>
         <module>domain</module>
+        <module>restapi</module>
     </modules>
-
 </project>

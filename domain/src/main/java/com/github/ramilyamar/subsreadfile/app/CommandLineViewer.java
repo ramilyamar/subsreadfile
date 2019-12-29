@@ -52,15 +52,17 @@ public class CommandLineViewer implements Viewer {
     public String createWordsView(Collection<WordInfo> wordInfoList) {
         return wordInfoList
                 .stream()
-                .map(WordInfo::getStringView)
-                .collect(Collectors.joining("\n"));
+                .map(w -> w.getWord() + " - " +
+                        w.getTranslations() + " (" +
+                        w.getLearningStatus().toString().toLowerCase() + ")"
+                ).collect(Collectors.joining("\n"));
     }
 
     @Override
     public String createMoviesView(List<MovieInfo> movieInfoList) {
         return movieInfoList
                 .stream()
-                .map(MovieInfo::getStringView)
+                .map(m -> m.getFileId() + ": " + m.getMovieName())
                 .collect(Collectors.joining("\n"));
     }
 }
