@@ -2,26 +2,17 @@ package com.github.ramilyamar.subsreadfile.db;
 
 import io.vavr.control.Option;
 
-import java.io.InputStream;
 import java.sql.*;
-import java.util.Properties;
 
 public class DatabaseImpl implements Database {
 
-    private static final String H2_DRIVER = "org.h2.Driver";
-
     private Connection connection;
 
-    public DatabaseImpl() {
+    public DatabaseImpl(DbProperties dbProperties) {
         try {
-            Class.forName(H2_DRIVER);
-            InputStream resourceAsStream = getClass().getClassLoader().getResourceAsStream("db.properties");
-            Properties properties = new Properties();
-            properties.load(resourceAsStream);
-            String url = properties.getProperty("db.url");
-            String user = properties.getProperty("db.user");
-            String password = properties.getProperty("db.password");
-            connection = DriverManager.getConnection(url, user, password);
+            Class.forName(dbProperties.getDriverClass());
+            connection = DriverManager.getConnection(dbProperties.getUrl(),
+                    dbProperties.getUser(), dbProperties.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
         }

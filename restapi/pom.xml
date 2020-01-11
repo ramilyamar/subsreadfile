@@ -11,13 +11,22 @@
     <properties>
         <maven.compiler.source>1.9</maven.compiler.source>
         <maven.compiler.target>1.9</maven.compiler.target>
+        <spring-boot-version>2.2.2.RELEASE</spring-boot-version>
+        <spring-security-config.version>5.2.1.RELEASE</spring-security-config.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>2.2.2.RELEASE</version>
+            <version>${spring-boot-version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+            <version>${spring-boot-version}</version>
         </dependency>
 
         <dependency>
@@ -29,7 +38,14 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>5.2.1.RELEASE</version>
+            <version>${spring-security-config.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <version>${spring-security-config.version}</version>
+            <scope>test</scope>
         </dependency>
 
         <dependency>
