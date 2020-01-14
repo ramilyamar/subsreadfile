@@ -18,7 +18,10 @@ public class WordController {
     private WordDao wordDao;
 
     @GetMapping
-    public List<WordInfo> getWords(@RequestParam long userId) {
+    public List<WordInfo> getWords(@RequestParam long userId, @RequestParam(required = false) Long fileId) {
+        if (fileId != null) {
+            return wordDao.getWordsFromMovieByUserId(fileId, userId);
+        }
         return wordDao.getWordsByUserId(userId);
     }
 }
