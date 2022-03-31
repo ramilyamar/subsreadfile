@@ -11,7 +11,7 @@
     <properties>
         <maven.compiler.source>1.9</maven.compiler.source>
         <maven.compiler.target>1.9</maven.compiler.target>
-        <spring-boot-version>2.2.2.RELEASE</spring-boot-version>
+        <spring-boot-version>2.5.12</spring-boot-version>
         <spring-security-config.version>5.2.1.RELEASE</spring-security-config.version>
     </properties>
 
